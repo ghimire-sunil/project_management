@@ -1,0 +1,75 @@
+<odoo>
+    <record id="views_crm_lead_inherit" model="ir.ui.view">
+        <field name="name">crm.lead.view.inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='phone']" position="after">
+                <group>
+                   <field name="project_type_ids" widget="many2many_tags"/>
+
+                </group>
+            </xpath>
+
+        </field>
+    </record>
+
+
+    <record id="crm_quick_create_form_inherit" model="ir.ui.view">
+        <field name="name">crm.quick.create.opportunity.form.inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.quick_create_opportunity_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/group" position="inside">
+                <field name="project_type_ids" class="text-truncate" type="open" widget="many2many_tags"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- list View -->
+    <record id="view_project_type_list" model="ir.ui.view">
+        <field name="name">custom.project.type.list</field>
+        <field name="model">custom.project.type</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="project_template_id"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_project_type_form" model="ir.ui.view">
+        <field name="name">custom.project.type.form</field>
+        <field name="model">custom.project.type</field>
+        <field name="arch" type="xml">
+            <form string="Project Type">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="project_template_id" domain="[('create_uid', '=','OdooBot' )]"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_project_type" model="ir.actions.act_window">
+        <field name="name">Project Types</field>
+        <field name="res_model">custom.project.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create a new project type.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_project_type_root"
+              name="Project Types"
+              action="action_project_type"
+              parent="crm.crm_menu_config"/>
+</odoo>
+

@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Project Template -->
+    <record id="project_manufacture" model="project.project">
+        <field name="name">Manufacture</field>
+        <field name="is_favorite">True</field>
+        <field name="active">True</field>
+    </record>
+
+    <!-- Stages -->
+    <record id="initiation_phase" model="project.task.type">
+        <field name="name">Initiation Phase</field>
+        <field name="project_ids" eval="[(4, ref('project_manufacture'))]"/>
+    </record>
+    <record id="development_phase" model="project.task.type">
+        <field name="name">Development Phase</field>
+        <field name="project_ids" eval="[(4, ref('project_manufacture'))]"/>
+    </record>
+    <record id="testing_phase" model="project.task.type">
+        <field name="name">Testing-Phase</field>
+        <field name="project_ids" eval="[(4, ref('project_manufacture'))]"/>
+    </record>
+    <record id="handover_phase" model="project.task.type">
+        <field name="name">HandOver</field>
+        <field name="project_ids" eval="[(4, ref('project_manufacture')) ]"/>
+    </record>
+
+
+    <!-- Initiation Phase -->
+    <record id="task_foundation_and_master" model="project.task">
+        <field name="name">Foundation and Master Data Setup</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+        <field name="allocated_hours">0.5</field>
+        <field name="user_ids" eval="[(4, ref('base.user_admin'))]"/> <!-- Example: Admin -->
+        <!-- Example: Admin -->
+    </record>
+
+    <record id="task_product_and_bill_of_materials" model="project.task">
+        <field name="name">Product and Bill of Materials (BOM) Configuration</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+         <field name="user_ids" eval="[(4, 8)]"/>
+
+    </record>
+    <record id="task_work_center_and_routing" model="project.task">
+        <field name="name">Work Centers and Routings</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+    </record>
+    <record id="task_manufacturing_order" model="project.task">
+        <field name="name">Manufacturing Orders (MOs) and Execution Flow</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+    </record>
+    <record id="task_work_order_management" model="project.task">
+        <field name="name">Work Order Management</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+    </record>
+    <record id="task_advanced_manufacturing" model="project.task">
+        <field name="name">Advanced Manufacturing Features Setup and Configuration</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+    </record>
+    <record id="task_reporting_and_costing" model="project.task">
+        <field name="name">Reporting and Costing</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+    </record>
+
+    <record id="subtask_configure_and_manufacturing" model="project.task">
+        <field name="name">Configure Manufacturing Settings</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+        <field name="allocated_hours">1</field>
+        <field name="parent_id" ref="task_foundation_and_master"/>
+    </record>
+
+    <record id="subtask_define_product_categories_for_raw" model="project.task">
+        <field name="name">Define Product Categories for Raw Materials, Sub-Assemblies, and Finished Goods.</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+        <field name="allocated_hours">1</field>
+        <field name="parent_id" ref="task_foundation_and_master"/>
+    </record>
+
+    <record id="subtask_create_and_configure_manufacturing" model="project.task">
+        <field name="name">Create and Configure Manufacturing Warehouses and Locations</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+        <field name="allocated_hours">1</field>
+        <field name="parent_id" ref="task_foundation_and_master"/>
+    </record>
+    <record id="subtask_create_import_uoms" model="project.task">
+        <field name="name">Create/Import UoMs (Units of Measure) specific to manufacturing (e.g., meters, grams,
+            liters).
+        </field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+        <field name="allocated_hours">0.5</field>
+        <field name="parent_id" ref="task_foundation_and_master"/>
+    </record>
+
+    <!--Product and Bill of Materials (BOM) Configuration subtask-->
+    <record id="subtask_configure_finished_good" model="project.task">
+        <field name="name">Configure Finished Good and Sub-Assembly Products</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+        <field name="allocated_hours">1</field>
+        <field name="parent_id" ref="task_product_and_bill_of_materials"/>
+    </record>
+    <record id="subtask_create_bom" model="project.task">
+        <field name="name">Create Bill of Materials (BOM)</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+        <field name="allocated_hours">1</field>
+        <field name="parent_id" ref="task_product_and_bill_of_materials"/>
+    </record>
+    <record id="subtask_create_bom_variants" model="project.task">
+        <field name="name">Configure BOM Variants</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+        <field name="allocated_hours">0.5</field>
+        <field name="parent_id" ref="task_product_and_bill_of_materials"/>
+    </record>
+    <record id="subtask_implement_byproduct_and_co-product" model="project.task">
+        <field name="name">Implement Byproducts and Co-products in BOMs</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+        <field name="allocated_hours">1</field>
+        <field name="parent_id" ref="task_product_and_bill_of_materials"/>
+    </record>
+
+    <!--Work Centers and Routings-->
+    <record id="subtask_implement_byproduct_and_co-product" model="project.task">
+        <field name="name">Define Work Centers (e.g., Cutting Station, Assembly Line, Packaging)</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+        <field name="allocated_hours">1</field>
+        <field name="parent_id" ref="task_work_center_and_routing"/>
+    </record>
+    <record id="subtask_create_and_routing" model="project.task">
+        <field name="name">Create Routings (Manufacturing Operations)</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+        <field name="allocated_hours">1</field>
+        <field name="parent_id" ref="task_work_center_and_routing"/>
+    </record>
+
+    <!--Manufacturing Orders (MOs) & Execution Flow-->
+
+    <record id="subtask_test_planned_order_to_mo" model="project.task">
+        <field name="name">Test the "Planned Order" to "Manufacturing Order" flow from MRP Scheduler.</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+        <field name="allocated_hours">1</field>
+        <field name="parent_id" ref="task_manufacturing_order"/>
+    </record>
+    <record id="subtask_test_the_manual_creation_mo" model="project.task">
+        <field name="name">Test manual creation of Manufacturing Orders.</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+        <field name="allocated_hours">0.5</field>
+        <field name="parent_id" ref="task_manufacturing_order"/>
+    </record>
+    <record id="subtask_configure_mo_auto_generate_work_order" model="project.task">
+        <field name="name">Configure MO Confirmation settings (auto-generate work orders?).</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+        <field name="allocated_hours">1</field>
+        <field name="parent_id" ref="task_manufacturing_order"/>
+    </record>
+    <record id="subtask_test_the_consumption_manual_automatic" model="project.task">
+        <field name="name">Test the consumption of components (manual vs. automatic).</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+        <field name="allocated_hours">1</field>
+        <field name="parent_id" ref="task_manufacturing_order"/>
+    </record>
+    <record id="subtask_test_the_production_fg_stock" model="project.task">
+        <field name="name">Test the production of finished goods and posting to stock.</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+        <field name="allocated_hours">1</field>
+        <field name="parent_id" ref="task_manufacturing_order"/>
+    </record>
+
+    <!--Work Order Management-->
+    <record id="subtask_configure_wo" model="project.task">
+        <field name="name">Configure Work Order operations (start, pause, finish, block).</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+        <field name="allocated_hours">1</field>
+        <field name="parent_id" ref="task_work_order_management"/>
+    </record>
+
+    <record id="subtask_set_up_tablet_view_for_shop" model="project.task">
+        <field name="name">Set up tablet view for shop floor workers (if used).</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+        <field name="allocated_hours">1</field>
+        <field name="parent_id" ref="task_work_order_management"/>
+    </record>
+    <record id="subtask_test_time_tracking_on_work" model="project.task">
+        <field name="name">Test time tracking on work orders and its impact on costing.</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+        <field name="allocated_hours">0.5</field>
+        <field name="parent_id" ref="task_work_order_management"/>
+    </record>
+    <record id="subtask_implement_quality_check_at_operation" model="project.task">
+        <field name="name">Implement quality checks at operation stages (if using Quality module).</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+        <field name="allocated_hours">1</field>
+        <field name="parent_id" ref="task_work_order_management"/>
+    </record>
+
+    <!--Advanced Manufacturing Features Setup and Configuration-->
+
+    <record id="subtask_mr_planning_schedule" model="project.task">
+        <field name="name">MRP Planning (Master Production Schedule)</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+        <field name="allocated_hours">1</field>
+        <field name="parent_id" ref="task_advanced_manufacturing"/>
+    </record>
+    <record id="subtask_plm_module" model="project.task">
+        <field name="name">PLM (Product Lifecycle Management) Module</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+        <field name="allocated_hours">1</field>
+        <field name="parent_id" ref="task_advanced_manufacturing"/>
+    </record>
+
+    <record id="subtask_maintenance_module_integration" model="project.task">
+        <field name="name">Maintenance Module Integration</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+        <field name="allocated_hours">1</field>
+        <field name="parent_id" ref="task_advanced_manufacturing"/>
+    </record>
+    <record id="subtask_maintenance_quality_module_integration" model="project.task">
+        <field name="name">Quality Module Integration</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+        <field name="allocated_hours">1</field>
+        <field name="parent_id" ref="task_advanced_manufacturing"/>
+    </record>
+
+
+    <!--Reporting & Costing-->
+
+    <record id="subtask_configuration_mc_method" model="project.task">
+        <field name="name">Configure Manufacturing Costing Methods (Standard vs. Actual).</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+        <field name="allocated_hours">1</field>
+        <field name="parent_id" ref="task_reporting_and_costing"/>
+    </record>
+    <record id="subtask_generate_validate_mc_sheet_product" model="project.task">
+        <field name="name">Generate and validate Manufacturing Cost Sheets for products.</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+        <field name="allocated_hours">1</field>
+        <field name="parent_id" ref="task_reporting_and_costing"/>
+    </record>
+    <record id="subtask_test_work_center_efficiency" model="project.task">
+        <field name="name">Test Work Center efficiency reporting.</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+        <field name="allocated_hours">1</field>
+        <field name="parent_id" ref="task_reporting_and_costing"/>
+    </record>
+    <record id="subtask_customize_standard_reports" model="project.task">
+        <field name="name">Customize/Validate standard reports: Manufacturing Orders, Work Orders, BOM Structure, MRP.</field>
+        <field name="project_id" ref="project_manufacture"/>
+        <field name="stage_id" ref="initiation_phase"/>
+        <field name="allocated_hours">1</field>
+        <field name="parent_id" ref="task_reporting_and_costing"/>
+    </record>
+
+
+</odoo>
