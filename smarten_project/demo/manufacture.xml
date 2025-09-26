@@ -40,7 +40,7 @@
         <field name="name">Product and Bill of Materials (BOM) Configuration</field>
         <field name="project_id" ref="project_manufacture"/>
         <field name="stage_id" ref="initiation_phase"/>
-         <field name="user_ids" eval="[(4, 8)]"/>
+         
 
     </record>
     <record id="task_work_center_and_routing" model="project.task">
